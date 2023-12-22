@@ -60,11 +60,16 @@ namespace BackpackPrototype
                 {
                     break;
                 }
+                
             }
 
             DisplayBackpackDetails("Firefighter Backpack", firefighterBackpack);
             DisplayBackpackDetails("Smart Backpack", smartBackpack);
             DisplayBackpackDetails("Sport Backpack", sportBackpack);
+
+            TestBackpack(firefighterBackpack, smartBackpack, sportBackpack);
+
+
         }
 
         // Helper methods to get user inputs
@@ -171,6 +176,53 @@ namespace BackpackPrototype
                 Console.WriteLine("Invalid input. Please enter 'yes' or 'no'.");
             }
         }
+
+
+
+        static void TestBackpack(FirefighterBackpack firefighterBackpack, SmartBackpack smartBackpack, SportBackpack sportBackpack)
+        {
+            while (true)
+            {
+                Console.WriteLine("\nChoose the backpack to test:");
+                Console.WriteLine("1. Firefighter Backpack");
+                Console.WriteLine("2. Sport Backpack");
+                Console.WriteLine("3. Smart Backpack");
+                Console.WriteLine("4. Exit testing");
+
+                Console.Write("Enter choice (1-4): ");
+
+                if (int.TryParse(Console.ReadLine(), out int testChoice) && testChoice >= 1 && testChoice <= 3)
+            {
+                switch (testChoice)
+                {
+                    case 1:
+                        firefighterBackpack?.ReactToFire();
+                        break;
+                    case 2:
+                        // Assuming you have the depth of water for testing
+                        Console.Write("Enter water depth: ");
+                        if (int.TryParse(Console.ReadLine(), out int waterDepth))
+                        {
+                            sportBackpack?.ReactToWater(waterDepth);
+                        }
+                        else
+                        {
+                            Console.WriteLine("Invalid water depth.");
+                        }
+                        break;
+                    case 3:
+                        smartBackpack?.ReactToLight();
+                        break;
+                    case 4:
+                        return; // Exit the testing loop
+                }
+            }
+            else
+            {
+                Console.WriteLine("Invalid test choice.");
+            }
+        }
+}
 
         static void DisplayBackpackDetails(string backpackType, Backpack backpack)
         {
