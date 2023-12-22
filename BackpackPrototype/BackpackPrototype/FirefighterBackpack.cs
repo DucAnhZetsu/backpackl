@@ -1,38 +1,33 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Text.Json;
 
 namespace BackpackPrototype
 {
     public class FirefighterBackpack : Backpack
     {
+        // Additional properties for a firefighter's backpack
         public string Tools { get; set; }
         public bool FireResistance { get; set; }
 
+        // Constructor
         public FirefighterBackpack(string colors, double size, string materials, string brand, double volume, double weight, string tools, bool fireResistance)
             : base(colors, size, materials, brand, volume, weight)
         {
-            this.Tools = tools;
-            this.FireResistance = fireResistance;
-            // You can set specific values for MaxCapacity, MaxVolume, MaxWeight here if needed
+            Tools = tools;
+            FireResistance = fireResistance;
         }
 
-        // Implementing Clone method to handle cloning specific properties
+        // Clone method implementation
         public override object Clone()
         {
             // Shallow clone the base class properties
-            var cloned = (FirefighterBackpack)this.MemberwiseClone();
+            var cloned = (FirefighterBackpack)MemberwiseClone();
 
-            // Perform deep copy for reference types (if any)
-            // If Tools or FireResistance were reference types, clone them here
+            // No need for deep copying here unless 'Tools' or 'FireResistance' are reference types
 
             return cloned;
         }
 
-        // Implementing Display method to show FirefighterBackpack specific properties
+        // Display method to show details of the firefighter's backpack
         public override void Display()
         {
             Console.WriteLine($"--- Firefighter Backpack ---");
@@ -48,4 +43,3 @@ namespace BackpackPrototype
         }
     }
 }
-

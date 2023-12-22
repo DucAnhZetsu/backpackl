@@ -1,39 +1,33 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Text.Json;
 
 namespace BackpackPrototype
 {
-    // The 'ConcretePrototype' class
     public class SmartBackpack : Backpack
     {
+        // Additional properties for a smart backpack
         public int LaptopSize { get; set; }
         public bool Battery { get; set; }
 
+        // Constructor
         public SmartBackpack(string colors, double size, string materials, string brand, double volume, double weight, int laptopSize, bool battery)
             : base(colors, size, materials, brand, volume, weight)
         {
-            this.LaptopSize = laptopSize;
-            this.Battery = battery;
-            // Set specific values for MaxCapacity, MaxVolume, MaxWeight if required
+            LaptopSize = laptopSize;
+            Battery = battery;
         }
 
-        // Implementing Clone method to handle cloning specific properties
+        // Clone method implementation
         public override object Clone()
         {
             // Shallow clone the base class properties
-            var cloned = (SmartBackpack)this.MemberwiseClone();
+            var cloned = (SmartBackpack)MemberwiseClone();
 
-            // Perform deep copy for reference types (if any)
-            // If Battery was a reference type, clone it here
+            // No need for deep copying here unless 'Battery' is a reference type
 
             return cloned;
         }
 
-        // Implementing Display method to show SmartBackpack specific properties
+        // Display method to show details of the smart backpack
         public override void Display()
         {
             Console.WriteLine($"--- Smart Backpack ---");
@@ -45,7 +39,6 @@ namespace BackpackPrototype
             Console.WriteLine($"Weight: {Weight}");
             Console.WriteLine($"Laptop Size: {LaptopSize} inch");
             Console.WriteLine($"Battery: {Battery}");
-            
             Console.WriteLine("-----------------------");
         }
     }

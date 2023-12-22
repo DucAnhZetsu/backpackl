@@ -16,45 +16,27 @@ namespace BackpackPrototype
         public double Weight { get; set; }
 
 
-        // A constructor that sets the colors, size, materials, brand, volume, and weight of the backpack
+        // A constructor that sets the colors, size, materials, brand, volume, and weight of the backpack\\
+
         public Backpack(string colors, double size, string materials, string brand, double volume, double weight)
         {
-            this.Colors = colors;
-            this.Size = size;
-            this.Materials = materials;
-            this.Brand = brand;
-            this.Volume = volume;
-            this.Weight = weight;
-            // Use some default values for the max capacity, volume, and weight
+            Colors = colors;
+            Size = size;
+            Materials = materials;
+            Brand = brand;
+            Volume = volume;
+            Weight = weight;
         }
-        // Modify the ShallowClone method to return a cloned instance
         public Backpack ShallowClone()
         {
             return (Backpack)this.MemberwiseClone();
         }
 
-        // Modify the Clone method to be overridden by derived classes
+        // Abstract Clone method to be implemented by derived classes
         public abstract object Clone();
 
-        // Modify the Display method to be overridden by derived classes
+        // Other methods and properties...
 
-        /*public virtual void HandleWater()
-        {
-            Console.WriteLine("This backpack got wet.");
-            // You can add further logic for handling water for a generic backpack here
-        }
-
-        public virtual void HandleFire()
-        {
-            Console.WriteLine("This backpack caught fire.");
-            // You can add further logic for handling fire for a generic backpack here
-        }
-
-        public virtual void HandleSunlight()
-        {
-            Console.WriteLine("This backpack is exposed to sunlight.");
-            // You can add further logic for handling sunlight for a generic backpack here
-        }*/
         public abstract void Display();
 
 

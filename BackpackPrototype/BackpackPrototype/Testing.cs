@@ -1,5 +1,5 @@
 ﻿using System;
-
+using System.Linq;
 namespace BackpackPrototype
 {
     class Testing
@@ -12,67 +12,42 @@ namespace BackpackPrototype
             SmartBackpack smartBackpack = null;
             SportBackpack sportBackpack = null;
 
-            bool addMoreBackpacks = true;
-
-            while (addMoreBackpacks)
+            while (true)
             {
+                double sizeLimit = 20; // Maximum size limit for the backpack
+                double volumeLimit = 6; // Maximum volume limit for the backpack
+                double weightLimit = 6; // Maximum weight limit for the backpack
+
                 Console.WriteLine("\nEnter backpack details:");
-                Console.Write("Colors: ");
-                string colors = Console.ReadLine();
-                // Get other common backpack details from the user...
-                // For example:
-                Console.Write("Size: ");
-                double size = double.Parse(Console.ReadLine());
-
-                Console.Write("Materials: ");
-                string materials = Console.ReadLine();
-
-                Console.Write("Brand: ");
-                string brand = Console.ReadLine();
-
-                Console.Write("Volume: ");
-                double volume = double.Parse(Console.ReadLine());
-
-                Console.Write("Weight: ");
-                double weight = double.Parse(Console.ReadLine());
+                string colors = GetUserInput("Colors");
+                double size = GetDoubleUserInput("Size", sizeLimit);
+                string materials = GetUserInput("Materials");
+                string brand = GetUserInput("Brand");
+                double volume = GetDoubleUserInput("Volume", volumeLimit);
+                double weight = GetDoubleUserInput("Weight", weightLimit);
 
 
-                Console.WriteLine("Choose the type of backpack to add:");
-                Console.WriteLine("1. Firefighter Backpack");
-                Console.WriteLine("2. Smart Backpack");
-                Console.WriteLine("3. Sport Backpack");
-                Console.Write("Enter choice (1-3): ");
-                int choice = int.Parse(Console.ReadLine());
+                int choice = GetBackpackChoice();
 
                 switch (choice)
                 {
                     case 1:
-                        // Get additional firefighter-specific details from the user
-                        Console.Write("Enter tools: ");
-                        string tools = Console.ReadLine();
-                        Console.Write("Is it fire-resistant? (true/false): ");
-                        bool fireResistance = bool.Parse(Console.ReadLine());
-
+                        string tools = GetUserInput("Tools");
+                        bool fireResistance = GetBooleanUserInput("Fire-resistant");
                         firefighterBackpack = new FirefighterBackpack(colors, size, materials, brand, volume, weight, tools, fireResistance);
                         break;
 
                     case 2:
-                        // Get additional smart-specific details from the user
-                        Console.Write("Enter laptop size (in inches): ");
-                        int laptopSize = int.Parse(Console.ReadLine());
-                        Console.Write("Does it have a battery? (true/false): ");
-                        bool hasBattery = bool.Parse(Console.ReadLine());
+                        int laptopSize = GetIntUserInput("Laptop size (in inches)", 20); // Assuming 20 is the maximum size limit for a laptop
 
+                        /*int laptopSize = GetIntUserInput("Laptop size (in inches)");*/
+                        bool hasBattery = GetBooleanUserInput("Has battery");
                         smartBackpack = new SmartBackpack(colors, size, materials, brand, volume, weight, laptopSize, hasBattery);
                         break;
 
                     case 3:
-                        // Get additional sport-specific details from the user
-                        Console.Write("Enter number of pockets: ");
-                        int pockets = int.Parse(Console.ReadLine());
-                        Console.Write("Does it have hydration? (true/false): ");
-                        bool hydration = bool.Parse(Console.ReadLine());
-
+                        int pockets = GetIntUserInput("Number of pockets",10);
+                        bool hydration = GetBooleanUserInput("Has hydration");
                         sportBackpack = new SportBackpack(colors, size, materials, brand, volume, weight, pockets, hydration);
                         break;
 
@@ -81,44 +56,132 @@ namespace BackpackPrototype
                         break;
                 }
 
-                Console.WriteLine("\nDo you want to add another backpack? (yes/no): ");
-                string addAnother = Console.ReadLine().ToLower();
-
-                if (addAnother != "yes")
+                if (!PromptToAddAnotherBackpack())
                 {
-                    addMoreBackpacks = false;
+                    break;
                 }
             }
 
-            // Display all added backpacks
-            Console.WriteLine("\nFirefighter Backpack:");
-            if (firefighterBackpack != null)
-            {
-                firefighterBackpack.Display();
-            }
-            else
-            {
-                Console.WriteLine("No Firefighter Backpack created.");
-            }
+            DisplayBackpackDetails("Firefighter Backpack", firefighterBackpack);
+            DisplayBackpackDetails("Smart Backpack", smartBackpack);
+            DisplayBackpackDetails("Sport Backpack", sportBackpack);
+        }
 
-            Console.WriteLine("\nSmart Backpack:");
-            if (smartBackpack != null)
+        // Helper methods to get user inputs
+        static string GetUserInput(string prompt)
+        {
+            while (true)
             {
-                smartBackpack.Display();
-            }
-            else
-            {
-                Console.WriteLine("No Smart Backpack created.");
-            }
+                Console.Write($"{prompt}: ");
+                string userInput = Console.ReadLine();
 
-            Console.WriteLine("\nSport Backpack:");
-            if (sportBackpack != null)
+                if (!string.IsNullOrWhiteSpace(userInput) && !userInput.Any(char.IsDigit))
+                {
+                    return userInput;
+                }
+
+                Console.WriteLine("Invalid input. Please enter a valid non-numeric string or character.");
+            }
+        }
+
+
+
+        static double GetDoubleUserInput(string prompt, double maxValue)
+        {
+            double result;
+            while (true)
             {
-                sportBackpack.Display();
+                Console.Write($"{prompt}: ");
+                if (double.TryParse(Console.ReadLine(), out result) && result <= maxValue)
+                {
+                    return result;
+                }
+                Console.WriteLine($"Invalid input. Please enter a valid number (not exceeding {maxValue}).");
+            }
+        }
+
+
+        static int GetIntUserInput(string prompt, int maxValue)
+        {
+            int result;
+            while (true)
+            {
+                Console.Write($"{prompt}: ");
+                if (int.TryParse(Console.ReadLine(), out result))
+                {
+                    if (result <= maxValue && result > 0) // Check if the value is within the limit and positive
+                    {
+                        return result;
+                    }
+                    Console.WriteLine($"Please enter a valid number between 1 and {maxValue}.");
+                }
+                else
+                {
+                    Console.WriteLine("Invalid input. Please enter a valid number.");
+                }
+            }
+        }
+
+        static bool GetBooleanUserInput(string prompt)
+        {
+            while (true)
+            {
+                Console.Write($"{prompt} (true/false): ");
+                string userInput = Console.ReadLine().ToLower();
+                if (userInput == "true" || userInput == "false")
+                {
+                    return bool.Parse(userInput);
+                }
+                Console.WriteLine("Invalid input. Please enter 'true' or 'false'.");
+            }
+        }
+
+        static int GetBackpackChoice()
+        {
+            while (true)
+            {
+                Console.WriteLine("\nChoose the type of backpack to add:");
+                Console.WriteLine("1. Firefighter Backpack");
+                Console.WriteLine("2. Smart Backpack");
+                Console.WriteLine("3. Sport Backpack");
+                Console.Write("Enter choice (1-3): ");
+
+                if (int.TryParse(Console.ReadLine(), out int choice) && choice >= 1 && choice <= 3)
+                {
+                    return choice;
+                }
+                Console.WriteLine("Invalid choice. Please enter a number between 1 and 3.");
+            }
+        }
+
+        static bool PromptToAddAnotherBackpack()
+        {
+            while (true)
+            {
+                Console.Write("\nDo you want to add another backpack? (yes/no): ");
+                string addAnother = Console.ReadLine().ToLower();
+                if (addAnother == "no")
+                {
+                    return false;
+                }
+                else if (addAnother == "yes")
+                {
+                    return true;
+                }
+                Console.WriteLine("Invalid input. Please enter 'yes' or 'no'.");
+            }
+        }
+
+        static void DisplayBackpackDetails(string backpackType, Backpack backpack)
+        {
+            Console.WriteLine($"\n{backpackType}:");
+            if (backpack != null)
+            {
+                backpack.Display();
             }
             else
             {
-                Console.WriteLine("No Sport Backpack created.");
+                Console.WriteLine($"No {backpackType} created.");
             }
         }
     }
