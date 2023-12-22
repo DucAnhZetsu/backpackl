@@ -1,0 +1,16 @@
+C:\Users\Admin\source\repos\BackpackPrototype\BackpackPrototype\bin\Debug\net5.0\BackpackPrototype.exe
+C:\Users\Admin\source\repos\BackpackPrototype\BackpackPrototype\bin\Debug\net5.0\BackpackPrototype.deps.json
+C:\Users\Admin\source\repos\BackpackPrototype\BackpackPrototype\bin\Debug\net5.0\BackpackPrototype.runtimeconfig.json
+C:\Users\Admin\source\repos\BackpackPrototype\BackpackPrototype\bin\Debug\net5.0\BackpackPrototype.runtimeconfig.dev.json
+C:\Users\Admin\source\repos\BackpackPrototype\BackpackPrototype\bin\Debug\net5.0\BackpackPrototype.dll
+C:\Users\Admin\source\repos\BackpackPrototype\BackpackPrototype\bin\Debug\net5.0\ref\BackpackPrototype.dll
+C:\Users\Admin\source\repos\BackpackPrototype\BackpackPrototype\bin\Debug\net5.0\BackpackPrototype.pdb
+C:\Users\Admin\source\repos\BackpackPrototype\BackpackPrototype\obj\Debug\net5.0\BackpackPrototype.csproj.AssemblyReference.cache
+C:\Users\Admin\source\repos\BackpackPrototype\BackpackPrototype\obj\Debug\net5.0\BackpackPrototype.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Admin\source\repos\BackpackPrototype\BackpackPrototype\obj\Debug\net5.0\BackpackPrototype.AssemblyInfoInputs.cache
+C:\Users\Admin\source\repos\BackpackPrototype\BackpackPrototype\obj\Debug\net5.0\BackpackPrototype.AssemblyInfo.cs
+C:\Users\Admin\source\repos\BackpackPrototype\BackpackPrototype\obj\Debug\net5.0\BackpackPrototype.csproj.CoreCompileInputs.cache
+C:\Users\Admin\source\repos\BackpackPrototype\BackpackPrototype\obj\Debug\net5.0\BackpackPrototype.dll
+C:\Users\Admin\source\repos\BackpackPrototype\BackpackPrototype\obj\Debug\net5.0\ref\BackpackPrototype.dll
+C:\Users\Admin\source\repos\BackpackPrototype\BackpackPrototype\obj\Debug\net5.0\BackpackPrototype.pdb
+C:\Users\Admin\source\repos\BackpackPrototype\BackpackPrototype\obj\Debug\net5.0\BackpackPrototype.genruntimeconfig.cache
